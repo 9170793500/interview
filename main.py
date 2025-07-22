@@ -55,6 +55,9 @@ def serve_dashboard():
 OPENROUTER_API_KEY = "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"
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+# Dynamically set referer for Render deployment
+HTTP_REFERER = "https://interview-5kmn.onrender.com"
+
 @app.post("/ai-chat")
 async def ai_chat(request: Request):
     data = await request.json()
@@ -63,6 +66,8 @@ async def ai_chat(request: Request):
         try:
             headers = {
                 "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "HTTP-Referer": HTTP_REFERER,
+                "X-Title": "AI Dashboard",
                 "Content-Type": "application/json"
             }
             payload = {
