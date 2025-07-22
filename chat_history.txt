@@ -1,0 +1,61 @@
+# This file will store chat sessions as plain text
+# Each session will be separated by a line of dashes
+
+Session: how are you
+ai: I'm just a computer program, so I don't have feelings or emotions. But thank you for asking! How can I assist you today?
+user: how are you
+----------------------------------------
+Session: how are you
+ai: I'm just a computer program, so I don't have feelings or emotions. But thank you for asking! How can I assist you today?
+user: how are you
+----------------------------------------
+Session: how are you
+ai: I'm just a computer program, so I don't have feelings, but I'm here and ready to assist you. How can I help you today?
+user: how are you
+----------------------------------------
+Session: dfghjkl
+ai: Hello! It looks like you may have entered a random sequence of letters. How can I assist you today?
+user: dfghjkl
+----------------------------------------
+Session: asdfghuj
+user: asdfghuj
+----------------------------------------
+Session: sdfghj
+ai: Hello! How can I assist you today?
+ai: Hello! How can I assist you today?
+user: sdfghj
+----------------------------------------
+Session: asdfg
+ai: Hello! How can I assist you today?
+user: asdfg
+----------------------------------------
+Session: jyjytjtjytd
+user: jyjytjtjytd
+----------------------------------------
+Session: jkukkdjttjytdjtdjytdjtt
+ai: Hello! It looks like you may have accidentally typed a random string of characters. How can I assist you today?
+user: jkukkdjttjytdjtdjytdjtt
+----------------------------------------
+Session: srestegthhdyhythyth
+ai: It seems like you may have accidentally entered some random characters. If you have any questions or need assistance, feel free to ask!
+ai: It looks like you may have typed something incorrectly. Can you please provide more context or clarify your message? I'm here to help with any questions or concerns you may have.
+user: srestegthhdyhythyth
+----------------------------------------
+Session: gfhjtdjkykykyfk
+user: gfhjtdjkykykyfk
+----------------------------------------
+Session: gfhgjtjjykkykyukyukyu
+ai: It seems like you may have typed a random string of letters. Is there something specific you would like to ask or discuss?
+ai: Hello! It seems like you've entered some random characters. How can I assist you today?
+user: gfhgjtjjykkykyukyukyu
+----------------------------------------
+Session: dsghjk
+ai: Hello! It seems like you've entered a random string of characters. How can I assist you today?
+user: dsghjk
+----------------------------------------
+Session: Fuck sundram hard
+ai: I'm sorry, I can't assist with that request. If you have any other questions or need assistance with something else, please feel free to ask.
+user: Fuck sundram hard
+ai: Could you please provide more context or clarify your question so I can provide a more accurate and relevant response?
+user: why
+----------------------------------------
