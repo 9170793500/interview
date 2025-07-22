@@ -7,9 +7,14 @@ from fastapi import FastAPI, Request, HTTPException, Response
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from dotenv import load_dotenv
+
+# Load environment variables from .env if present
+load_dotenv()
 
 app = FastAPI()
 
+# CORS setup
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,6 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Serve static files (for login.html, dashboard.html)
 app.mount("/static", StaticFiles(directory="."), name="static")
 
 @app.get("/")
@@ -52,41 +58,39 @@ def logout(response: Response):
 def serve_dashboard():
     return FileResponse("dashboard.html")
 
-OPENROUTER_API_KEY = "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"
+# OpenRouter Configuration
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-
-# Dynamically set referer for Render deployment
-HTTP_REFERER = "https://interview-5kmn.onrender.com"
+HTTP_REFERER = "https://interview-5kmn.onrender.com"  # Your deployed domain
 
 @app.post("/ai-chat")
 async def ai_chat(request: Request):
     data = await request.json()
     user_message = data.get("message")
-    if user_message:
-        try:
-            headers = {
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-                "HTTP-Referer": HTTP_REFERER,
-                "X-Title": "AI Dashboard",
-                "Content-Type": "application/json"
-            }
-            payload = {
-                "model": "openai/gpt-3.5-turbo",
-                "messages": [
-                    {"role": "user", "content": user_message}
-                ]
-            }
-            async with httpx.AsyncClient() as client:
-                response = await client.post(OPENROUTER_API_URL, headers=headers, json=payload)
-                if response.status_code == 200:
-                    result = response.json()
-                    answer = result["choices"][0]["message"]["content"]
-                else:
-                    answer = f"Error: {response.text}"
-        except Exception as e:
-            answer = f"Error: {str(e)}"
-    else:
-        answer = "Please ask a question."
+    if not user_message:
+        return {"answer": "Please ask a question."}
+    
+    try:
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Referer": HTTP_REFERER,
+            "X-Title": "AI Dashboard",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "openai/gpt-3.5-turbo",
+            "messages": [{"role": "user", "content": user_message}]
+        }
+        async with httpx.AsyncClient() as client:
+            response = await client.post(OPENROUTER_API_URL, headers=headers, json=payload)
+            if response.status_code == 200:
+                result = response.json()
+                answer = result["choices"][0]["message"]["content"]
+            else:
+                answer = f"Error: {response.text}"
+    except Exception as e:
+        answer = f"Error: {str(e)}"
+    
     return {"answer": answer}
 
 @app.post("/save-chat")
@@ -98,10 +102,10 @@ async def save_chat(request: Request):
         f.write(f"Session: {session_title}\n")
         for msg in messages:
             f.write(f"{msg['role']}: {msg['content']}\n")
-        f.write("-"*40 + "\n")
+        f.write("-" * 40 + "\n")
     return {"status": "saved"}
 
+# Run with uvicorn
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8080, reload=True)
-
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
