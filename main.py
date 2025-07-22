@@ -69,7 +69,10 @@ async def ai_chat(request: Request):
     user_message = data.get("message")
     if not user_message:
         return {"answer": "Please ask a question."}
-    
+
+    # You can use hardcoded key temporarily if env is not working
+    # OPENROUTER_API_KEY = "sk-or-..."  # uncomment to test
+
     try:
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -77,6 +80,7 @@ async def ai_chat(request: Request):
             "X-Title": "AI Dashboard",
             "Content-Type": "application/json"
         }
+        print("API KEY:", OPENROUTER_API_KEY)
         payload = {
             "model": "openai/gpt-3.5-turbo",
             "messages": [{"role": "user", "content": user_message}]
@@ -90,8 +94,9 @@ async def ai_chat(request: Request):
                 answer = f"Error: {response.text}"
     except Exception as e:
         answer = f"Error: {str(e)}"
-    
+
     return {"answer": answer}
+
 
 @app.post("/save-chat")
 async def save_chat(request: Request):
