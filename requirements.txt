@@ -4,3 +4,5 @@ pandas
 jinja2
 requests
 httpx
+python-multipart
+python-dotenv
